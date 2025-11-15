@@ -418,6 +418,7 @@ export class MeteogramCard extends LitElement {
     this.layoutMode = config.layout_mode ?? "sections";
     // Add language selection
     this.language = config.language;
+    this._debugLog(`[${CARD_NAME}] setConfig: Language set to: ${this.language || 'Default (Home Assistant)'}`);
 
     // Initialize units whenever hass config changes
     if (this.hass) {

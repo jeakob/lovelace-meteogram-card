@@ -2,7 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { MeteogramCardConfig, MeteogramCardEditorElement, ConfigurableHTMLElement } from "./types";
 import { trnslt } from "./translations";
-import { DIAGNOSTICS_DEFAULT } from "./constants";
+import { CARD_NAME, DIAGNOSTICS_DEFAULT } from "./constants";
 import { version } from "../package.json";
 
 
@@ -12,6 +12,13 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
     @property({ type: Object }) hass: any;
     @state() private _initialized = false;
     private _elements: Map<string, ConfigurableHTMLElement> = new Map();
+
+  // Debug helper method for conditional logging
+  private _debugLog(...args: any[]): void {
+    if (this._config.debug) { // Assuming debug is a config option
+      console.debug(`[${CARD_NAME} EDITOR]`, ...args);
+    }
+  }
 
 
 
@@ -150,6 +157,8 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
         const aspectRatio = this._config.aspect_ratio || "16:9";
         const div = document.createElement('div');
         const layoutMode = this._config.layout_mode || "sections";
+        const effectiveEditorLang = this._config.language || (hass && hass.language) || "en";
+        this._debugLog(`Effective editor language: ${effectiveEditorLang}`);
 
         // Get all weather entities from hass
         const weatherEntities: string[] = hass && hass.states
