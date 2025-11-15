@@ -42,5 +42,6 @@
   "ui.editor.meteogram.attributes.weather_icons": "Show Weather Icons",
   "ui.editor.meteogram.attributes.wind": "Show Wind",
   "ui.editor.meteogram.attributes.dense_icons": "Dense Weather Icons (every hour)",
-  "ui.editor.meteogram.attributes.fill_container": "Fill Container"
+  "ui.editor.meteogram.attributes.fill_container": "Fill Container",
+  "ui.editor.meteogram.language": "Language"
 }

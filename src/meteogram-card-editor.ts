@@ -228,10 +228,10 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
           .value="${this._config.title || ''}"
         ></ha-textfield>
       </div>
-      <p class="help-text">${trnslt(hass, "ui.editor.meteogram.title_description", "Card title (optional, shown at the top of the card)")}</p>
+      <p class="help-text">${trnslt(this.hass, "ui.editor.meteogram.title_description", "Card title (optional, shown at the top of the card)", this._config.language)}</p>
 
       <div class="row">
-        <label for="weather-entity-select" style="margin-right:8px;">${trnslt(hass, "ui.editor.meteogram.weather_entity", "Weather Entity")}</label>
+        <label for="weather-entity-select" style="margin-right:8px;">${trnslt(this.hass, "ui.editor.meteogram.weather_entity", "Weather Entity", this._config.language)}</label>
         <select id="weather-entity-select">
           <option value="none" ${!isWeatherEntitySelected ? "selected" : ""}>None</option>
           ${weatherEntities.map(eid =>
@@ -239,51 +239,51 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
           ).join('')}
         </select>
       </div>
-      <p class="help-text">${trnslt(hass, "ui.editor.meteogram.choose_weather_entity", "Choose a weather entity for Home Assistant integration, or select 'None' to use coordinates.")}</p>
+      <p class="help-text">${trnslt(this.hass, "ui.editor.meteogram.choose_weather_entity", "Choose a weather entity for Home Assistant integration, or select 'None' to use coordinates.", this._config.language)}</p>
 
       <div class="info-text">
         ${hass?.localize ? hass.localize("ui.editor.meteogram.location_info") : "Location coordinates will be used to fetch weather data directly from Met.no API."}
-        ${defaultLat ? trnslt(hass, "ui.editor.meteogram.using_ha_location", "Using Home Assistant's location by default.") : ""}
+        ${defaultLat ? trnslt(this.hass, "ui.editor.meteogram.using_ha_location", "Using Home Assistant's location by default.", this._config.language) : ""}
       </div>
 
       <div class="side-by-side">
         <ha-textfield
-          label="${trnslt(hass, "ui.editor.meteogram.latitude", "Latitude")}"
+          label="${trnslt(this.hass, "ui.editor.meteogram.latitude", "Latitude", this._config.language)}"
           id="latitude-input"
           type="number"
           step="any"
           .value="${this._config.latitude !== undefined ? this._config.latitude : defaultLat}"
-          placeholder="${defaultLat ? `${trnslt(hass, "ui.editor.meteogram.default", "Default")}: ${defaultLat}` : ""}"
+          placeholder="${defaultLat ? `${trnslt(this.hass, "ui.editor.meteogram.default", "Default", this._config.language)}: ${defaultLat}` : ""}"
           ${isWeatherEntitySelected ? "disabled" : ""}
         ></ha-textfield>
 
         <ha-textfield
-          label="${trnslt(hass, "ui.editor.meteogram.longitude", "Longitude")}"
+          label="${trnslt(this.hass, "ui.editor.meteogram.longitude", "Longitude", this._config.language)}"
           id="longitude-input"
           type="number"
           step="any"
           .value="${this._config.longitude !== undefined ? this._config.longitude : defaultLon}"
-          placeholder="${defaultLon ? `${trnslt(hass, "ui.editor.meteogram.default", "Default")}: ${defaultLon}` : ""}"
+          placeholder="${defaultLon ? `${trnslt(this.hass, "ui.editor.meteogram.default", "Default", this._config.language)}: ${defaultLon}` : ""}"
           ${isWeatherEntitySelected ? "disabled" : ""}
         ></ha-textfield>
 
         <ha-textfield
-          label="${trnslt(hass, "ui.editor.meteogram.altitude", "Altitude (meters)")}"
+          label="${trnslt(this.hass, "ui.editor.meteogram.altitude", "Altitude (meters)", this._config.language)}"
           id="altitude-input"
           type="number"
           step="any"
           .value="${this._config.altitude !== undefined ? this._config.altitude : defaultAlt}"
-          placeholder="${defaultAlt ? `${trnslt(hass, "ui.editor.meteogram.default", "Default")}: ${defaultAlt}` : trnslt(hass, "ui.editor.meteogram.optional", "Optional")}" 
+          placeholder="${defaultAlt ? `${trnslt(this.hass, "ui.editor.meteogram.default", "Default", this._config.language)}: ${defaultAlt}` : trnslt(this.hass, "ui.editor.meteogram.optional", "Optional", this._config.language)}" 
           ${isWeatherEntitySelected ? "disabled" : ""}
         ></ha-textfield>
       </div>
-      <p class="help-text">${trnslt(hass, "ui.editor.meteogram.leave_empty", "Leave empty to use Home Assistant's configured location")}</p>
+      <p class="help-text">${trnslt(this.hass, "ui.editor.meteogram.leave_empty", "Leave empty to use Home Assistant's configured location", this._config.language)}</p>
 
       <div class="toggle-section">
-        <h3>${trnslt(hass, "ui.editor.meteogram.display_options", "Display Options")}</h3>
+        <h3>${trnslt(this.hass, "ui.editor.meteogram.display_options", "Display Options", this._config.language)}</h3>>
 
         <div class="toggle-row">
-          <div class="toggle-label">${trnslt(hass, "ui.editor.meteogram.attributes.cloud_coverage", "Show Cloud Cover")}</div>
+          <div class="toggle-label">${trnslt(this.hass, "ui.editor.meteogram.attributes.cloud_coverage", "Show Cloud Cover", this._config.language)}</div>
           <ha-switch
             id="show-cloud-cover"
             .checked="${showCloudCover}"
@@ -291,7 +291,7 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
         </div>
 
         <div class="toggle-row">
-          <div class="toggle-label">${trnslt(hass, "ui.editor.meteogram.attributes.air_pressure", "Show Pressure")}</div>
+          <div class="toggle-label">${trnslt(this.hass, "ui.editor.meteogram.attributes.air_pressure", "Show Pressure", this._config.language)}</div>
           <ha-switch
             id="show-pressure"
             .checked="${showPressure}"
@@ -299,7 +299,7 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
         </div>
 
         <div class="toggle-row">
-          <div class="toggle-label">${trnslt(hass, "ui.editor.meteogram.attributes.precipitation", "Show Precipitation (Rain & Snow)")}</div>
+          <div class="toggle-label">${trnslt(this.hass, "ui.editor.meteogram.attributes.precipitation", "Show Precipitation (Rain & Snow)", this._config.language)}</div>>
           <ha-switch
             id="show-precipitation"
             .checked="${this._config.show_precipitation !== undefined ? this._config.show_precipitation : true}"
@@ -307,7 +307,7 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
         </div>
 
         <div class="toggle-row">
-          <div class="toggle-label">${trnslt(hass, "ui.editor.meteogram.attributes.weather_icons", "Show Weather Icons")}</div>
+          <div class="toggle-label">${trnslt(this.hass, "ui.editor.meteogram.attributes.weather_icons", "Show Weather Icons", this._config.language)}</div>
           <ha-switch
             id="show-weather-icons"
             .checked="${showWeatherIcons}"
@@ -315,7 +315,7 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
         </div>
 
         <div class="toggle-row">
-          <div class="toggle-label">${trnslt(hass, "ui.editor.meteogram.attributes.wind", "Show Wind")}</div>
+          <div class="toggle-label">${trnslt(this.hass, "ui.editor.meteogram.attributes.wind", "Show Wind", this._config.language)}</div>
           <ha-switch
             id="show-wind"
             .checked="${showWind}"
@@ -323,7 +323,7 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
         </div>
 
         <div class="toggle-row">
-          <div class="toggle-label">${trnslt(hass, "ui.editor.meteogram.attributes.dense_icons", "Dense Weather Icons (every hour)")}</div>
+          <div class="toggle-label">${trnslt(this.hass, "ui.editor.meteogram.attributes.dense_icons", "Dense Weather Icons (every hour)", this._config.language)}</div>
           <ha-switch
             id="dense-weather-icons"
             .checked="${denseWeatherIcons}"
@@ -341,17 +341,32 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
       </div>
 
       <div class="row">
-        <label for="meteogram-hours-select" style="margin-right:8px;">${trnslt(hass, "ui.editor.meteogram.meteogram_length", "Meteogram Length")}</label>
+        <label for="meteogram-hours-select" style="margin-right:8px;">${trnslt(this.hass, "ui.editor.meteogram.meteogram_length", "Meteogram Length", this._config.language)}</label>
         <select id="meteogram-hours-select">
-          <option value="8h" ${meteogramHours === "8h" ? "selected" : ""}>${trnslt(hass, "ui.editor.meteogram.hours_8", "8 hours")}</option>
-          <option value="12h" ${meteogramHours === "12h" ? "selected" : ""}>${trnslt(hass, "ui.editor.meteogram.hours_12", "12 hours")}</option>
-          <option value="24h" ${meteogramHours === "24h" ? "selected" : ""}>${trnslt(hass, "ui.editor.meteogram.hours_24", "24 hours")}</option>
-          <option value="48h" ${meteogramHours === "48h" ? "selected" : ""}>${trnslt(hass, "ui.editor.meteogram.hours_48", "48 hours")}</option>
-          <option value="54h" ${meteogramHours === "54h" ? "selected" : ""}>${trnslt(hass, "ui.editor.meteogram.hours_54", "54 hours")}</option>
-          <option value="max" ${meteogramHours === "max" ? "selected" : ""}>${trnslt(hass, "ui.editor.meteogram.hours_max", "Max available")}</option>
+          <option value="8h" ${meteogramHours === "8h" ? "selected" : ""}>${trnslt(this.hass, "ui.editor.meteogram.hours_8", "8 hours", this._config.language)}</option>
+          <option value="12h" ${meteogramHours === "12h" ? "selected" : ""}>${trnslt(this.hass, "ui.editor.meteogram.hours_12", "12 hours", this._config.language)}</option>
+          <option value="24h" ${meteogramHours === "24h" ? "selected" : ""}>${trnslt(this.hass, "ui.editor.meteogram.hours_24", "24 hours", this._config.language)}</option>
+          <option value="48h" ${meteogramHours === "48h" ? "selected" : ""}>${trnslt(this.hass, "ui.editor.meteogram.hours_48", "48 hours", this._config.language)}</option>
+          <option value="54h" ${meteogramHours === "54h" ? "selected" : ""}>${trnslt(this.hass, "ui.editor.meteogram.hours_54", "54 hours", this._config.language)}</option>
+          <option value="max" ${meteogramHours === "max" ? "selected" : ""}>${trnslt(this.hass, "ui.editor.meteogram.hours_max", "Max available", this._config.language)}</option>
         </select>
       </div>
-      <p class="help-text">${trnslt(hass, "ui.editor.meteogram.choose_hours", "Choose how many hours to show in the meteogram")}</p>
+      <p class="help-text">${trnslt(this.hass, "ui.editor.meteogram.choose_hours", "Choose how many hours to show in the meteogram", this._config.language)}</p>
+
+      <div class="row">
+        <label for="language-select" style="margin-right:8px;">${trnslt(this.hass, "ui.editor.meteogram.language", "Language", this._config.language)}</label>
+        <select id="language-select">
+          <option value="" ${!this._config.language ? "selected" : ""}>${trnslt(this.hass, "ui.editor.meteogram.default", "Default (Home Assistant)", this._config.language)}</option>
+          <option value="en" ${this._config.language === "en" ? "selected" : ""}>English</option>
+          <option value="nb" ${this._config.language === "nb" ? "selected" : ""}>Norsk Bokmål</option>
+          <option value="es" ${this._config.language === "es" ? "selected" : ""}>Español</option>
+          <option value="it" ${this._config.language === "it" ? "selected" : ""}>Italiano</option>
+          <option value="de" ${this._config.language === "de" ? "selected" : ""}>Deutsch</option>
+          <option value="fr" ${this._config.language === "fr" ? "selected" : ""}>Français</option>
+          <option value="hr" ${this._config.language === "hr" ? "selected" : ""}>Hrvatski</option>
+          <option value="pl" ${this._config.language === "pl" ? "selected" : ""}>Polski</option>
+        </select>
+      </div>
 
       ${["panel", "grid"].includes(layoutMode) ? `
       <div class="row">
@@ -468,6 +483,13 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
                 meteogramHoursSelect.configValue = 'meteogram_hours';
                 meteogramHoursSelect.addEventListener('change', this._valueChanged.bind(this));
                 this._elements.set('meteogram_hours', meteogramHoursSelect);
+            }
+
+            const languageSelect = this.querySelector('#language-select') as ConfigurableHTMLElement;
+            if (languageSelect) {
+                languageSelect.configValue = 'language';
+                languageSelect.addEventListener('change', this._valueChanged.bind(this));
+                this._elements.set('language', languageSelect);
             }
 
             const diagnosticsSwitch = this.querySelector('#diagnostics') as ConfigurableHTMLElement;
@@ -588,6 +610,11 @@ export class MeteogramCardEditor extends LitElement implements MeteogramCardEdit
       this._config = {
         ...this._config,
         display_mode: modeValue
+      };
+    } else if (target.configValue === 'language') {
+      this._config = {
+        ...this._config,
+        language: newValue === '' ? undefined : String(newValue)
       };
     } else {
       let configValue: boolean | string | number | undefined;

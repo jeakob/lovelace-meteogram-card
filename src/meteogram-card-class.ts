@@ -104,6 +104,7 @@ export class MeteogramCard extends LitElement {
     | "panel"
     | "grid"
     | undefined = undefined;
+  @property({ type: String }) language?: string;
 
   @state() private chartLoaded = false;
   @state() private meteogramError = "";
@@ -415,6 +416,8 @@ export class MeteogramCard extends LitElement {
     this.aspectRatio = config.aspect_ratio || "16:9";
     // Add support for layoutMode
     this.layoutMode = config.layout_mode ?? "sections";
+    // Add language selection
+    this.language = config.language;
 
     // Initialize units whenever hass config changes
     if (this.hass) {
@@ -1893,8 +1896,8 @@ export class MeteogramCard extends LitElement {
   }
   // Add a helper to get the HA locale string for date formatting
   private getHaLocale(): string {
-    // Use hass.language if available, fallback to "en"
-    return this.hass && this.hass.language ? this.hass.language : "en";
+    // Use configured language if available, else hass.language, fallback to "en"
+    return this.language || (this.hass && this.hass.language) || "en";
   }
 
   // Helper to calculate forecast data age

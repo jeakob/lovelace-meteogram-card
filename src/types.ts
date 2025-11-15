@@ -20,6 +20,7 @@ export interface MeteogramCardConfig {
     display_mode?: "full" | "core" | "focussed"; // Add this line for display mode
     aspect_ratio?: string; // Add this line for aspect ratio support
     layout_mode?: "sections" | "panel" | "grid"; // Add this line for layout mode support
+    language?: string; // Add this line for explicit language selection
 }
 
 export interface MeteogramData {

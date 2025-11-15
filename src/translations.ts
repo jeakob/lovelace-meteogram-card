@@ -17,25 +17,32 @@ const locales: Array<{ code: string; data: Record<string, string> }> = [
     { code: "hr", data: hrLocale },
 ];
 
-export function trnslt(hass: any, key: string, fallback?: string): string {
+export function trnslt(hass: any, key: string, fallback?: string, lang?: string): string {
+    // Determine the language to use, prioritizing the provided 'lang' parameter
+    // then hass.language, then defaulting to 'en'
+    const effectiveLang = lang || (hass && hass.language) || "en";
+
     // Try hass.localize (used by HA frontend)
+    // We pass the effectiveLang to hass.localize if it supports it directly
     if (hass && typeof hass.localize === "function") {
-        const result = hass.localize(key);
+        // hass.localize might take a specific language as the first argument, or assume it from hass.language
+        // For now, we assume it uses hass.language, but we could make this more robust if needed
+        const result = hass.localize(key); // Assumes hass.localize uses hass.language internally
         if (result && result !== key) return result;
     }
 
     // Try hass.resources (used by HA backend)
     if (hass && hass.resources && typeof hass.resources === "object") {
-        const lang = hass.language || "en";
-        const res = hass.resources[lang]?.[key];
+        const res = hass.resources[effectiveLang]?.[key];
         if (res) return res;
     }
-    // Try local translation files
-    const lang = (hass && hass.language) ? hass.language : "en";
+    
+    // Try local translation files (our custom locales array)
     // Find the best matching locale by prefix
     const localeObj =
-        locales.find(l => lang.toLowerCase().startsWith(l.code)) ||
-        locales[0]; // Default to English if not found
+        locales.find(l => effectiveLang.toLowerCase().startsWith(l.code)) ||
+        locales.find(l => "en".startsWith(l.code)) || // Fallback to English specifically from our local files
+        locales[0]; // Default to first available if English is somehow missing
 
     const localRes = localeObj.data[key];
 
